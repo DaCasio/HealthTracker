@@ -1,0 +1,18 @@
+# .github/workflows/analyze.yml
+name: Health Data Analysis
+on:
+  schedule:
+    - cron: '0 20 * * *' # Täglich um 20:00 Uhr
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Run Analysis
+        run: |
+          python backend/analyze.py
+          git config --global user.name "GitHub Action"
+          git commit -am "Auto-update analysis" 
+          git push
